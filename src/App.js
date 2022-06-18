@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-svg-core'
 
 
 function App() {
+    let [countries,setCountries]=useState([]);
     useEffect(()=>{
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
@@ -17,7 +18,9 @@ function App() {
             }
         }).then(res => res.json())
             .then(data => {
+                setCountries(data);
               console.log(data);
+              console.log(data.length)
             })
             .catch(err => {
                 alert(err)
@@ -41,26 +44,49 @@ function App() {
             </nav>
             <section className="container">
                 <div className="row">
-                    <div className="col-md-3 p-2">
-                        <div className="card">
+                    {
+                        countries.map((country)=>{
+                            return(
+                                <div className="col-md-3 p-2">
+                                    <div className="card" >
+                                        <img className="card-img-top" src={country.flags.png} alt="Card image cap"/>
+                                        <div className="card-body">
+                                            <p className="card-text">Some quick example text to build on the card title and make
+                                                up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
 
+                    {/*<div className="col-md-3 p-2">
+                        <div className="card" >
+                            <img className="card-img-top" src="..." alt="Card image cap"/>
+                                <div className="card-body">
+                                    <p className="card-text">Some quick example text to build on the card title and make
+                                        up the bulk of the card's content.</p>
+                                </div>
                         </div>
                     </div>
                     <div className="col-md-3 p-2">
-                        <div className="card">
-
+                        <div className="card" >
+                            <img className="card-img-top" src="..." alt="Card image cap"/>
+                                <div className="card-body">
+                                    <p className="card-text">Some quick example text to build on the card title and make
+                                        up the bulk of the card's content.</p>
+                                </div>
                         </div>
                     </div>
                     <div className="col-md-3 p-2">
-                        <div className="card">
-
+                        <div className="card" >
+                            <img className="card-img-top" src="..." alt="Card image cap"/>
+                                <div className="card-body">
+                                    <p className="card-text">Some quick example text to build on the card title and make
+                                        up the bulk of the card's content.</p>
+                                </div>
                         </div>
-                    </div>
-                    <div className="col-md-3 p-2">
-                        <div className="card">
-
-                        </div>
-                    </div>
+                    </div>*/}
                 </div>
             </section>
         </React.Fragment>
