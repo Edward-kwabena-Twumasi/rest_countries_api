@@ -16,7 +16,7 @@ function App() {
 
     let refreshList = () => {
         console.log(filterDropDown.current.value);
-        setFilter(filterDropDown.current.value);
+        let filter=filterDropDown.current.value;
         if(filter!=="")
         setDisplayList(countries.filter(country=>country.region===filter))
     }
@@ -66,7 +66,7 @@ function App() {
                             onChange={() => refreshList()}
                             ref={filterDropDown}
                     >
-                        <option key={1000} value={'000'} disabled>Filter By Region</option>
+                        <option key={1000} value={'000'} disabled selected>Filter By Region</option>
                         {continents.map((continent) => {
                             return (
                                 <option key={continent} value={continent}>{continent}</option>
@@ -76,7 +76,7 @@ function App() {
                 </div>
                 <div className="row">
                     {
-                        countries.map((country) => {
+                        displayList.map((country) => {
                             return (
                                 <div className="col-md-3 p-2" key={country.cca2}>
                                     <div className="card">
