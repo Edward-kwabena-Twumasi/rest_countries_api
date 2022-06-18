@@ -1,14 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useState,useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import '@fortawesome/fontawesome-free-solid'
 import '@fortawesome/fontawesome-svg-core'
 
 
 function App() {
-    let [countries,setCountries]=useState([]);
-    useEffect(()=>{
+    let [countries, setCountries] = useState([]);
+    useEffect(() => {
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
             mode: 'cors',
@@ -19,15 +19,15 @@ function App() {
         }).then(res => res.json())
             .then(data => {
                 setCountries(data);
-              console.log(data);
-              console.log(data.length)
+                console.log(data);
+                console.log(data.length)
             })
             .catch(err => {
                 alert(err)
                 console.log(err);
             })
 
-    },[])
+    }, [])
     const [theme, setTheme] = useState("dark")
     return (
         <React.Fragment>
@@ -45,14 +45,16 @@ function App() {
             <section className="container">
                 <div className="row">
                     {
-                        countries.map((country)=>{
-                            return(
-                                <div className="col-md-3 p-2">
-                                    <div className="card" >
+                        countries.map((country) => {
+                            return (
+                                <div className="col-md-3 p-2" key={country.cca2}>
+                                    <div className="card">
                                         <img className="card-img-top" src={country.flags.png} alt="Card image cap"/>
                                         <div className="card-body">
-                                            <p className="card-text">Some quick example text to build on the card title and make
-                                                up the bulk of the card's content.</p>
+                                            <h6 className="country-h font-weight-bold text-left">
+                                                {country.name.common}
+                                            </h6>
+                                            <p className={'country-details'}>Population:&nbsp;{country.population}<br/>Region:&nbsp;{country.region}<br/>Capital:&nbsp;{country.capital}</p>
                                         </div>
                                     </div>
                                 </div>
