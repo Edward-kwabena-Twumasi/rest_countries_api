@@ -1,14 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import '@fortawesome/fontawesome-free-solid'
 import '@fortawesome/fontawesome-svg-core'
 
 
 function App() {
+    const filterDropDown = useRef(null)
+
     let [countries, setCountries] = useState([]);
+    let [continents, setContinents] = useState([]);
+    let [displayList, setDisplayList] = useState([]);
+    let [filter,setFilter]=useState("");
+
+    let refreshList = () => {
+        console.log(filterDropDown.current.value);
+        setFilter(filterDropDown.current.value);
+        if(filter!=="")
+        setDisplayList(countries.filter(country=>country.region===filter))
+    }
+
     useEffect(() => {
+        console.log(filterDropDown.current);
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
             mode: 'cors',
@@ -18,9 +32,12 @@ function App() {
             }
         }).then(res => res.json())
             .then(data => {
+                setContinents(Array.from(new Set(data.map((country) => country.region))))
                 setCountries(data);
+                setDisplayList(data);
                 console.log(data);
                 console.log(data.length)
+                console.log(new Set(data.map(country => country.region)));
             })
             .catch(err => {
                 alert(err)
@@ -43,6 +60,20 @@ function App() {
                 </button>
             </nav>
             <section className="container">
+                <div className="filter-control justify-content-between my-3">
+                    <input type="search" className="search-control my-3" placeholder={'Enter country'}/>
+                    <select className={'search-control my-3'} name="filters" id="continent_filter"
+                            onChange={() => refreshList()}
+                            ref={filterDropDown}
+                    >
+                        <option key={1000} value={'000'} disabled>Filter By Region</option>
+                        {continents.map((continent) => {
+                            return (
+                                <option key={continent} value={continent}>{continent}</option>
+                            );
+                        })}
+                    </select>
+                </div>
                 <div className="row">
                     {
                         countries.map((country) => {
@@ -54,7 +85,8 @@ function App() {
                                             <h6 className="country-h font-weight-bold text-left">
                                                 {country.name.common}
                                             </h6>
-                                            <p className={'country-details'}>Population:&nbsp;{country.population}<br/>Region:&nbsp;{country.region}<br/>Capital:&nbsp;{country.capital}</p>
+                                            <p className={'country-details'}>Population:&nbsp;{country.population}<br/>Region:&nbsp;{country.region}<br/>Capital:&nbsp;{country.capital}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
