@@ -3,5 +3,5 @@
 C:
 cd C:/rest_countries
 git add .
-git commit -m "edit to rest countries"
+git commit -m "Rest countries api project"
 git push -u origin main
