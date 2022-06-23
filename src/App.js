@@ -4,7 +4,7 @@ import React, {useState, useEffect, createContext} from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import '@fortawesome/fontawesome-free-solid'
 import '@fortawesome/fontawesome-svg-core'
-import CountryList from "./components/CountryList";
+//import CountryList from "./components/CountryList";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomeScreen from "./components/HomeScreen";
 import DetailScreen from "./components/DetailScreen";
@@ -35,9 +35,7 @@ function App() {
                 setDisplayContinentList(data);
                 setDisplayList(data);
                 // console.log(filterDropDown.current.value);
-                /*console.log(data);
-                  console.log(data.length)
-                  console.log(new Set(data.map(country => country.region)));*/
+                
             })
             .catch(err => {
                 alert(err)

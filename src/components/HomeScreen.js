@@ -1,6 +1,6 @@
 import React from 'react';
 import CountryList from "./CountryList";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useRef} from "react";
 import {ThemeContext} from "../App";
 
 function HomeScreen({props}) {
